@@ -8,4 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootTest
 public class EmployeeTest {
+
+    @Autowired
+    private Employee employee;
+
+    @Test
+    public void employeeLoads() {
+        assertThat(employee).isNotNull();
+    }
 }
