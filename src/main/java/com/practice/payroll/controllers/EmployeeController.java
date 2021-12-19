@@ -1,8 +1,10 @@
 package com.practice.payroll.controllers;
 
 import com.practice.payroll.entities.Employee;
-import com.practice.payroll.repositories.EmployeeRepository;
+
+import com.practice.payroll.services.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -10,14 +12,14 @@ import java.util.List;
 @RestController
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/employees")
-    public List<Employee> getAll() {
-        return employeeRepository.findAll();
+    public List<Employee> index() {
+        return employeeService.getAllEmployees();
     }
 }
