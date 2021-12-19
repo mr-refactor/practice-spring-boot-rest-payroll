@@ -1,21 +1,14 @@
 package com.practice.payroll.controllers;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.util.MultiValueMap;
-
-import java.util.HashMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,11 +42,17 @@ public class EmployeeControllerTest {
         try {
             this.mockMvc.perform(post("/employees/")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content("{ \"name\": \"Jane Doe\", \"role\": \"Server\" }"))
+                    .content(
+                            "{ " +
+                            "\"name\": \"Jane Doe\"," +
+                            " \"role\": \"Server\" " +
+                            "}"
+                    ))
                     .andDo(print())
 //                    .andExpect(status().isCreated())
-                    .andExpect(status().isOk())
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                    .andExpectAll(
+                            status().isOk(),
+                            content().contentType(MediaType.APPLICATION_JSON));
         } catch (Exception e) {
             e.printStackTrace();
         }
