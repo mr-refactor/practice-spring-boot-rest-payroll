@@ -14,7 +14,7 @@ import java.util.List;
 public class EmployeeSeedTest {
 
     @Autowired
-    EmployeeRepository employeeRepo;
+    public EmployeeRepository employeeRepo;
 
     @Test
     void dbShouldLoadTwoEmployees() {
