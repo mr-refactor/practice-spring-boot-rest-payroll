@@ -17,8 +17,22 @@ public class EmployeeSeedTest {
     EmployeeRepository employeeRepo;
 
     @Test
-    void dbShouldLoadTwoEmployees(){
+    void dbShouldLoadTwoEmployees() {
         List<Employee> employees = employeeRepo.findAll();
         assertThat(employees.size()).isEqualTo(2);
+    }
+
+    @Test
+    void givenMiltonFirstEmployeeShouldBeMilton() {
+        Employee milton = employeeRepo.findById(1L)
+                .orElseThrow(() -> new RuntimeException());
+        assertThat(milton.getName()).isEqualTo("Milton Waddams");
+    }
+
+    @Test
+    void givenPeterSecondEmployeeShouldBePeter() {
+        Employee peter = employeeRepo.findById(2L)
+                .orElseThrow(() -> new RuntimeException());
+        assertThat(peter.getName()).isEqualTo("Peter Gibbons");
     }
 }

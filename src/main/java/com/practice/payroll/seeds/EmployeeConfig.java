@@ -16,8 +16,18 @@ public class EmployeeConfig {
     @Bean
     CommandLineRunner seedDbWithEmployees(EmployeeRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Employee()));
-            log.info("Preloading " + repository.save(new Employee()));
+            log.info("Preloading "
+                    + repository.save(
+                            new Employee(
+                                    "Milton Waddams",
+                                    "drone")
+            ));
+            log.info("Preloading "
+                    + repository.save(
+                            new Employee(
+                                    "Peter Gibbons",
+                                    "programmer")
+            ));
         };
     }
 }
