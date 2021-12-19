@@ -3,9 +3,7 @@ package com.practice.payroll.controllers;
 import com.practice.payroll.entities.Employee;
 
 import com.practice.payroll.services.EmployeeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,10 @@ public class EmployeeController {
     @GetMapping("/employees")
     public List<Employee> index() {
         return employeeService.getAllEmployees();
+    }
+
+    @PostMapping("/employees")
+    public @ResponseBody Employee create(@RequestBody Employee employeeInfo) {
+        return employeeService.addNewEmployee(employeeInfo);
     }
 }
