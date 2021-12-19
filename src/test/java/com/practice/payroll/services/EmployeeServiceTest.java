@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 public class EmployeeServiceTest {
@@ -24,6 +25,14 @@ public class EmployeeServiceTest {
     with Java typing system */
     @Test
     public void getAllEmployeesShouldReturnListOfEmployees() {
+    }
+
+    @Test
+    public void givenNewEmployeeAddNewEmployeeShouldAddNewEmployeeToDbAndReturnIt() {
+        Employee joanna = new Employee("Joanna", "Server");
+        Employee newEmployee = employeeService.addNewEmployee(joanna);
+        assertThat(newEmployee.getName()).isEqualTo("Joanna");
+        assertThat(newEmployee.getRole()).isEqualTo("Server");
     }
 
 
