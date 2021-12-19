@@ -31,24 +31,8 @@ public class EmployeeControllerTest {
     // currently only checking that status is ok and content type is json
     @Test
     public void getEmployeesShouldReturnListOfEmployees() {
-        getPathReturnsStatusOkAndContentTypeJSON("/employees/");
-    }
-
-
-    @Test
-    public void givenNameAndRolePostEmployeesShouldReturnNewEmployee() {
-        postPathReturnsStatusOkAndContentTypeJSON("/employees/");
-    }
-
-//    @Test
-//    public void getEmployeeShouldReturnEmployeeWithProperId() {
-//        pathReturnsStatusOkAndContentTypeJSON("/employees/1");
-//    }
-
-
-    private void getPathReturnsStatusOkAndContentTypeJSON(String path) {
         try {
-            this.mockMvc.perform(get(path))
+            this.mockMvc.perform(get("/employees/"))
                     .andDo(print())
                     .andExpectAll(
                             status().isOk(),
@@ -58,17 +42,26 @@ public class EmployeeControllerTest {
         }
     }
 
+
     // TODO: Validate that response gives 201 to show it was created
-    private void postPathReturnsStatusOkAndContentTypeJSON(String path) {
+    @Test
+    public void givenNameAndRolePostEmployeesShouldReturnNewEmployee() {
         try {
-            this.mockMvc.perform(post(path)
+            this.mockMvc.perform(post("/employees/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("{ \"name\": \"Jane Doe\", \"role\": \"Server\" }"))
                     .andDo(print())
+//                    .andExpect(status().isCreated())
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+//    @Test
+//    public void getEmployeeShouldReturnEmployeeWithProperId() {
+//        pathReturnsStatusOkAndContentTypeJSON("/employees/1");
+//    }
+
 }
