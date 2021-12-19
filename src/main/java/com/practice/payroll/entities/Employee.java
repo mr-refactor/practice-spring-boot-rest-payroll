@@ -7,9 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-//@Entity
+@Entity
 public class Employee {
 
-//    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue Long id;
     public Employee(){}
 }
