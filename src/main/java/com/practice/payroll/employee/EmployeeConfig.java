@@ -1,7 +1,5 @@
-package com.practice.payroll.seeds;
+package com.practice.payroll.employee;
 
-import com.practice.payroll.entities.Employee;
-import com.practice.payroll.repositories.EmployeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

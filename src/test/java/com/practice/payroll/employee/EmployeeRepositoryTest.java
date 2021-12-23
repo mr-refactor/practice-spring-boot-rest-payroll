@@ -1,5 +1,6 @@
-package com.practice.payroll.repositories;
+package com.practice.payroll.employee;
 
+import com.practice.payroll.employee.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

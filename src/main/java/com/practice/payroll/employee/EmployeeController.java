@@ -1,8 +1,5 @@
-package com.practice.payroll.controllers;
+package com.practice.payroll.employee;
 
-import com.practice.payroll.entities.Employee;
-
-import com.practice.payroll.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

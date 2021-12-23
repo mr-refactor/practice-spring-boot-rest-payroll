@@ -1,9 +1,9 @@
-package com.practice.payroll.seeds;
+package com.practice.payroll.employee;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.practice.payroll.entities.Employee;
-import com.practice.payroll.repositories.EmployeeRepository;
+import com.practice.payroll.employee.Employee;
+import com.practice.payroll.employee.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.practice.payroll.controllers;
+package com.practice.payroll.employee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

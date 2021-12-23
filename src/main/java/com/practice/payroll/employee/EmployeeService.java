@@ -1,7 +1,7 @@
-package com.practice.payroll.services;
+package com.practice.payroll.employee;
 
-import com.practice.payroll.entities.Employee;
-import com.practice.payroll.repositories.EmployeeRepository;
+import com.practice.payroll.employee.Employee;
+import com.practice.payroll.employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
