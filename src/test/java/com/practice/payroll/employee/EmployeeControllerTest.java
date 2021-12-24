@@ -54,25 +54,27 @@ public class EmployeeControllerTest {
     // TODO: Validate that response gives 201 to show it was created
     @Test
     public void postEmployees_ReturnsNewEmployee() throws Exception{
+        Employee milton = EmployeeFactory.getMilton();
+        given(employeeService.addNewEmployee(milton))
+                .willReturn(milton);
 
         this.mockMvc.perform(post("/employees/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(
                             "{ " +
-                            "\"name\": \"Jane Doe\"," +
-                            " \"role\": \"Server\" " +
+                            "\"name\": \"Milton Waddams\"," +
+                            " \"role\": \"drone\" " +
                             "}"
                     ))
                     .andDo(print())
 //                    .andExpect(status().isCreated())
                     .andExpectAll(
                             status().isOk(),
-                            content().contentType(MediaType.APPLICATION_JSON));
-    }
+                            content().contentType(MediaType.APPLICATION_JSON),
+                            jsonPath("$.name").value("Milton Waddams"),
+                            jsonPath("$.role").value("drone"));
 
-//    @Test
-//    public void getEmployeeShouldReturnEmployeeWithProperId() {
-//        pathReturnsStatusOkAndContentTypeJSON("/employees/1");
-//    }
+        verify(employeeService).addNewEmployee(milton);
+    }
 
 }
