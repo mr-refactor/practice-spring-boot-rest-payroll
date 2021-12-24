@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,8 +41,17 @@ public class EmployeeServiceTest {
         assertThat(employees.size()).isEqualTo(2);
     }
 
-    /* TODO: figure out if we need to test for this or if it's a given
-    with Java typing system */
+    @Test
+    public void addNewEmployee_ReturnsNewEmployee(){
+        Employee milton = EmployeeFactory.getMilton();
+        given(employeeRepository.save(milton)).willReturn(milton);
 
+        Employee newEmployee = employeeService.addNewEmployee(milton);
+
+        assertThat(newEmployee).isEqualTo(milton);
+    }
+
+    // TODO: not sure how to test updateEmployee since
+    //  it's transactional and doesn't call employeeRepository directly
 
 }

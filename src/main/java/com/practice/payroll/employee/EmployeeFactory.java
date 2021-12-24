@@ -13,4 +13,6 @@ public class EmployeeFactory {
     public static List<Employee> listOfEmployees(){
         return List.of(MILTON, PETER);
     }
+
+    public static Employee getMilton() { return MILTON; }
 }
