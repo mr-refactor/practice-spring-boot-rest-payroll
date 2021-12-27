@@ -33,8 +33,6 @@ public class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // TODO: Refactor tests to check JSON response body is correct
-    // currently only checking that status is ok and content type is json
     @Test
     public void getEmployees_ReturnsListOfEmployees() throws Exception {
         given(employeeService.getAllEmployees()).willReturn(EmployeeFactory.listOfEmployees());
@@ -49,6 +47,11 @@ public class EmployeeControllerTest {
                         jsonPath("$.[0].role").value("drone"));
 
         verify(employeeService).getAllEmployees();
+    }
+
+    @Test
+    public void getEmployeeId_ReturnsTheExistingEmployee() {
+        given(employeeService.getEmployeeDetails(99L)).willThrow(EmployeeNotFoundException.class);
     }
 
     // TODO: Validate that response gives 201 to show it was created

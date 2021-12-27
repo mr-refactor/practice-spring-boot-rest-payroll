@@ -24,4 +24,8 @@ public class EmployeeService {
     public Employee addNewEmployee(Employee newEmployee) {
         return employeeRepository.save(newEmployee);
     }
+
+    public Object getEmployeeDetails(long l) {
+        return null;
+    }
 }
