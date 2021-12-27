@@ -34,7 +34,7 @@ public class EmployeeControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void getEmployees_ReturnsListOfEmployees() throws Exception {
+    public void indexEmployees_returnsListOfEmployees() throws Exception {
         given(employeeService.getAllEmployees()).willReturn(EmployeeFactory.listOfEmployees());
 
         this.mockMvc.perform(get("/employees/"))
@@ -50,21 +50,37 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void getEmployeeId_ReturnsTheExistingEmployee() throws Exception {
+    public void showEmployee_returnsTheExistingEmployee() throws Exception {
         given(employeeService.getEmployeeDetails(1L)).willReturn(EmployeeFactory.getMilton());
 
         this.mockMvc.perform(get("/employees/1"))
                 .andDo(print())
                 .andExpectAll(
-                        status().isOk()
+                        status().isOk(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$.name").value("Milton Waddams"),
+                        jsonPath("$.role").value("drone")
                 );
 
         verify(employeeService).getEmployeeDetails(1L);
     }
 
+    @Test
+    public void showEmployee_returnsExceptionGivenInvalidID() throws Exception {
+        given(employeeService.getEmployeeDetails(99)).willThrow(EmployeeNotFoundException.class);
+
+        this.mockMvc.perform(get("/employees/99"))
+                .andDo(print())
+                .andExpectAll(
+                        status().is4xxClientError()
+                );
+
+        verify(employeeService).getEmployeeDetails(99L);
+    }
+
     // TODO: Validate that response gives 201 to show it was created
     @Test
-    public void postEmployees_ReturnsNewEmployee() throws Exception{
+    public void createEmployee_ReturnsNewEmployee() throws Exception{
         Employee milton = EmployeeFactory.getMilton();
         given(employeeService.addNewEmployee(milton))
                 .willReturn(milton);
@@ -83,7 +99,8 @@ public class EmployeeControllerTest {
                             status().isOk(),
                             content().contentType(MediaType.APPLICATION_JSON),
                             jsonPath("$.name").value("Milton Waddams"),
-                            jsonPath("$.role").value("drone"));
+                            jsonPath("$.role").value("drone")
+                    );
 
         verify(employeeService).addNewEmployee(milton);
     }

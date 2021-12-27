@@ -1,4 +1,6 @@
 package com.practice.payroll.employee;
 
-public class EmployeeNotFoundException extends RuntimeException {
+public class EmployeeNotFoundException extends IllegalArgumentException {
+
+    public EmployeeNotFoundException(String message) {super();}
 }

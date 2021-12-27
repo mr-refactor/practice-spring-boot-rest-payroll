@@ -26,6 +26,8 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeDetails(long id) {
-        return null;
+       return employeeRepository.findById(id)
+               .orElseThrow( () ->
+                    new EmployeeNotFoundException("No existing employee with ID: " + id));
     }
 }
