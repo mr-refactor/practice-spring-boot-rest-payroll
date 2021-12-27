@@ -27,7 +27,7 @@ public class EmployeeService {
     public Employee getEmployeeDetails(long employeeId) {
        return employeeRepository.findById(employeeId)
                .orElseThrow( () ->
-                    new EmployeeNotFoundException("Employee with ID " + employeeId + " NOT FOUND"));
+                    new EmployeeNotFoundException(employeeId));
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class EmployeeService {
                   return employee;
                 })
                 .orElseThrow(() ->
-                        new EmployeeNotFoundException("Employee with ID " + employeeId + " NOT FOUND")
+                        new EmployeeNotFoundException(employeeId)
                 );
     }
 

@@ -5,5 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class EmployeeNotFoundException extends IllegalArgumentException {
 
-    public EmployeeNotFoundException(String message) {super(message);}
+    public EmployeeNotFoundException(Long employeeId) {
+        super("Employee with ID " + employeeId + " NOT FOUND");
+    }
+
+    public EmployeeNotFoundException(String customMessage) {super(customMessage);}
 }
