@@ -1,5 +1,6 @@
 package com.practice.payroll.employee;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,5 +27,11 @@ public class EmployeeController {
     @PostMapping("/employees")
     public @ResponseBody Employee create(@RequestBody Employee employeeInfo) {
         return employeeService.addNewEmployee(employeeInfo);
+    }
+
+    @ExceptionHandler(EmployeeNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private @ResponseBody String handleEmployeeNotFoundException(EmployeeNotFoundException ex){
+        return ex.getMessage();
     }
 }
