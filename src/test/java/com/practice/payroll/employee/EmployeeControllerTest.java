@@ -82,7 +82,7 @@ public class EmployeeControllerTest {
 
     // TODO: Validate that response gives 201 to show it was created
     @Test
-    public void createEmployee_ReturnsNewEmployee() throws Exception{
+    public void createEmployee_returnsNewEmployee() throws Exception{
         Employee milton = EmployeeFactory.getMilton();
         given(employeeService.addNewEmployee(milton))
                 .willReturn(milton);
@@ -108,7 +108,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void updateEmployee_ReturnsNewEmployee() throws Exception {
+    public void updateEmployee_returnsNewEmployee() throws Exception {
         Long employeeId = 1L;
         Employee miltonUnhinged = EmployeeFactory.getMilton();
         miltonUnhinged.setName("Enraged Milton Waddams");
@@ -124,7 +124,7 @@ public class EmployeeControllerTest {
                                 " \"role\": \"arsonist\" " +
                                 "}"
                 ))
-//                .andDo(print())
+                .andDo(print())
                 .andExpectAll(
                         status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
@@ -133,5 +133,26 @@ public class EmployeeControllerTest {
                 );
 
         verify(employeeService).updateEmployeeDetails(employeeId, miltonUnhinged);
+    }
+
+    @Test void updateEmployee_returns404GivenInvalidID() throws Exception{
+        given(employeeService.updateEmployeeDetails(any(Long.class), any(Employee.class)))
+                .willThrow(new EmployeeNotFoundException("Employee with ID 99 not found"));
+
+        this.mockMvc.perform(put("/employees/99")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                        "{ " +
+                            "\"name\": \"Enraged Milton Waddams\"," +
+                            " \"role\": \"arsonist\" " +
+                        "}"
+                ))
+                    .andDo(print())
+                    .andExpectAll(
+                        status().isNotFound(),
+                        jsonPath("$").isNotEmpty()
+                    );
+
+        verify(employeeService).updateEmployeeDetails(any(Long.class), any(Employee.class));
     }
 }
