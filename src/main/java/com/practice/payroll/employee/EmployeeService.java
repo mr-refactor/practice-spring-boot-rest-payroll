@@ -1,9 +1,8 @@
 package com.practice.payroll.employee;
 
-import com.practice.payroll.employee.Employee;
-import com.practice.payroll.employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,5 +28,18 @@ public class EmployeeService {
        return employeeRepository.findById(id)
                .orElseThrow( () ->
                     new EmployeeNotFoundException("Employee with ID " + id + " NOT FOUND"));
+    }
+
+    @Transactional
+    public Employee updateEmployeeDetails(Long employeeId, Employee employeeDetails) {
+        return employeeRepository.findById(employeeId)
+                .map(employee -> {
+                  employee.setName(employeeDetails.getName());
+                  employee.setRole(employeeDetails.getRole());
+                  return employee;
+                })
+                .orElseThrow(() ->
+                        new EmployeeNotFoundException("Employee with ID " + employeeId + " NOT FOUND")
+                );
     }
 }

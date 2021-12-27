@@ -13,9 +13,9 @@ import static org.hamcrest.Matchers.hasSize;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.any;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -107,4 +107,31 @@ public class EmployeeControllerTest {
         verify(employeeService).addNewEmployee(milton);
     }
 
+    @Test
+    public void updateEmployee_ReturnsNewEmployee() throws Exception {
+        Long employeeId = 1L;
+        Employee miltonUnhinged = EmployeeFactory.getMilton();
+        miltonUnhinged.setName("Enraged Milton Waddams");
+        miltonUnhinged.setRole("arsonist");
+        given(employeeService.updateEmployeeDetails(employeeId, miltonUnhinged))
+                .willReturn(miltonUnhinged);
+
+        this.mockMvc.perform(put("/employees/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                        "{ " +
+                                "\"name\": \"Enraged Milton Waddams\"," +
+                                " \"role\": \"arsonist\" " +
+                                "}"
+                ))
+//                .andDo(print())
+                .andExpectAll(
+                        status().isOk(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$.name").value("Enraged Milton Waddams"),
+                        jsonPath("$.role").value("arsonist")
+                );
+
+        verify(employeeService).updateEmployeeDetails(employeeId, miltonUnhinged);
+    }
 }

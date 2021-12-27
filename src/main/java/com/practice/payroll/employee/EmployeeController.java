@@ -29,6 +29,11 @@ public class EmployeeController {
         return employeeService.addNewEmployee(employeeInfo);
     }
 
+    @PutMapping("/employees/{employeeId}")
+    public Employee update(@PathVariable Long employeeId, @RequestBody Employee employeeInfo) {
+        return employeeService.updateEmployeeDetails(employeeId, employeeInfo);
+    }
+
     @ExceptionHandler(EmployeeNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private @ResponseBody String handleEmployeeNotFoundException(EmployeeNotFoundException ex){
