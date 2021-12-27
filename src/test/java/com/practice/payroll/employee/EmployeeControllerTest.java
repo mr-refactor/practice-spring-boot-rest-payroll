@@ -110,9 +110,7 @@ public class EmployeeControllerTest {
     @Test
     public void updateEmployee_returnsNewEmployee() throws Exception {
         Long employeeId = 1L;
-        Employee miltonUnhinged = EmployeeFactory.getMilton();
-        miltonUnhinged.setName("Enraged Milton Waddams");
-        miltonUnhinged.setRole("arsonist");
+        Employee miltonUnhinged = EmployeeFactory.getMiltonUnhinged();
         given(employeeService.updateEmployeeDetails(employeeId, miltonUnhinged))
                 .willReturn(miltonUnhinged);
 
@@ -154,5 +152,19 @@ public class EmployeeControllerTest {
                     );
 
         verify(employeeService).updateEmployeeDetails(any(Long.class), any(Employee.class));
+    }
+
+    @Test void deleteEmployee_returnsSuccessMessage() throws Exception {
+        Long employeeId = 1L;
+        given(employeeService.removeEmployee(employeeId))
+                .willReturn("Employee with ID " + employeeId + " has been removed");
+
+        this.mockMvc.perform(delete("/employees/1"))
+                .andDo(print())
+                .andExpectAll(
+                        status().isOk(),
+                        jsonPath("$").isNotEmpty());
+
+        verify(employeeService).removeEmployee(employeeId);
     }
 }

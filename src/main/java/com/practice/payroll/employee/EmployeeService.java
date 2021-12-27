@@ -24,10 +24,10 @@ public class EmployeeService {
         return employeeRepository.save(newEmployee);
     }
 
-    public Employee getEmployeeDetails(long id) {
-       return employeeRepository.findById(id)
+    public Employee getEmployeeDetails(long employeeId) {
+       return employeeRepository.findById(employeeId)
                .orElseThrow( () ->
-                    new EmployeeNotFoundException("Employee with ID " + id + " NOT FOUND"));
+                    new EmployeeNotFoundException("Employee with ID " + employeeId + " NOT FOUND"));
     }
 
     @Transactional
@@ -41,5 +41,12 @@ public class EmployeeService {
                 .orElseThrow(() ->
                         new EmployeeNotFoundException("Employee with ID " + employeeId + " NOT FOUND")
                 );
+    }
+
+    public String removeEmployee(Long employeeId) {
+        if (!employeeRepository.existsById(employeeId))
+            throw new EmployeeNotFoundException("Employee with ID " + employeeId + " NOT FOUND");
+
+        return "Employee with ID" + employeeId + " successfully removed";
     }
 }

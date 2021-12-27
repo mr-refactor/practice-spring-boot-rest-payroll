@@ -34,6 +34,11 @@ public class EmployeeController {
         return employeeService.updateEmployeeDetails(employeeId, employeeInfo);
     }
 
+    @DeleteMapping("/employees/{employeeId}")
+    public @ResponseBody String delete(@PathVariable Long employeeId) {
+        return employeeService.removeEmployee(employeeId);
+    }
+
     @ExceptionHandler(EmployeeNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private @ResponseBody String handleEmployeeNotFoundException(EmployeeNotFoundException ex){
