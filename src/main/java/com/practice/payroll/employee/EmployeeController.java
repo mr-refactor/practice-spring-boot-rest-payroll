@@ -18,6 +18,11 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
+    @GetMapping("/employees/{id}")
+    public Employee show() {
+        return null;
+    }
+
     @PostMapping("/employees")
     public @ResponseBody Employee create(@RequestBody Employee employeeInfo) {
         return employeeService.addNewEmployee(employeeInfo);
