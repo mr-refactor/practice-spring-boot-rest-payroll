@@ -67,12 +67,13 @@ public class EmployeeControllerTest {
 
     @Test
     public void showEmployee_returnsExceptionGivenInvalidID() throws Exception {
-        given(employeeService.getEmployeeDetails(99)).willThrow(EmployeeNotFoundException.class);
+        given(employeeService.getEmployeeDetails(99))
+                .willThrow(new EmployeeNotFoundException("No existing employee with ID: 99"));
 
         this.mockMvc.perform(get("/employees/99"))
                 .andDo(print())
                 .andExpectAll(
-                        status().is4xxClientError()
+                        status().isNotFound()
                 );
 
         verify(employeeService).getEmployeeDetails(99L);
