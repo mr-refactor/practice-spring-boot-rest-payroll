@@ -51,15 +51,15 @@ public class EmployeeControllerTest {
 
     @Test
     public void getEmployeeId_ReturnsTheExistingEmployee() throws Exception {
-        given(employeeService.getEmployeeDetails(1)).willReturn(EmployeeFactory.getMilton());
+        given(employeeService.getEmployeeDetails(1L)).willReturn(EmployeeFactory.getMilton());
 
-        this.mockMvc.perform(get("/employees/1/"))
+        this.mockMvc.perform(get("/employees/1"))
                 .andDo(print())
                 .andExpectAll(
                         status().isOk()
                 );
 
-        verify(employeeService).getEmployeeDetails(1);
+        verify(employeeService).getEmployeeDetails(1L);
     }
 
     // TODO: Validate that response gives 201 to show it was created

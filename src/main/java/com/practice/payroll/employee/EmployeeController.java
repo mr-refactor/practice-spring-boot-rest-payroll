@@ -18,9 +18,9 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
-    @GetMapping("/employees/{id}")
-    public Employee show() {
-        return null;
+    @GetMapping("/employees/{employeeId}")
+    public Employee show(@PathVariable Long employeeId ) {
+        return employeeService.getEmployeeDetails(employeeId);
     }
 
     @PostMapping("/employees")
